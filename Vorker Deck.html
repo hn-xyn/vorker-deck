@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vorker — Brand Mascot Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0e12; }
+  * { box-sizing: border-box; }
+  deck-stage:not(:defined) { visibility: hidden; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+  <section data-label="Cover"><div id="deck-slide-1"></div></section>
+  <section data-label="Meet Vorker"><div id="deck-slide-2"></div></section>
+  <section data-label="Expressions 1/2"><div id="deck-slide-3"></div></section>
+  <section data-label="Expressions 2/2"><div id="deck-slide-4"></div></section>
+  <section data-label="Integrations 1/2"><div id="deck-slide-5"></div></section>
+  <section data-label="Integrations 2/2"><div id="deck-slide-6"></div></section>
+  <section data-label="Maturity Note"><div id="deck-slide-7"></div></section>
+  <section data-label="Brand Imagery"><div id="deck-slide-8"></div></section>
+  <section data-label="In the World 1/2"><div id="deck-slide-9"></div></section>
+  <section data-label="In the World 2/2"><div id="deck-slide-10"></div></section>
+  <section data-label="Style Options 1/2"><div id="deck-slide-11"></div></section>
+  <section data-label="Style Options 2/2"><div id="deck-slide-12"></div></section>
+  <section data-label="Prompts · Title"><div id="deck-slide-13"></div></section>
+  <section data-label="Prompts · Two refs"><div id="deck-slide-14"></div></section>
+  <section data-label="Prompts · Telephone"><div id="deck-slide-15"></div></section>
+  <section data-label="Prompts · Anatomy"><div id="deck-slide-16"></div></section>
+  <section data-label="Prompts · Breathing room"><div id="deck-slide-17"></div></section>
+  <section data-label="Prompts · Dialing in"><div id="deck-slide-18"></div></section>
+  <section data-label="Prompts · Example"><div id="deck-slide-19"></div></section>
+  <section data-label="Iteration 1/2"><div id="deck-slide-20"></div></section>
+  <section data-label="Iteration 2/2"><div id="deck-slide-21"></div></section>
+  <section data-label="Style Family · Opener"><div id="deck-slide-30"></div></section>
+  <section data-label="Style Family · Tiers"><div id="deck-slide-31"></div></section>
+  <section data-label="Style Family · Rule"><div id="deck-slide-32"></div></section>
+  <section data-label="Cartoon · Meet"><div id="deck-slide-22"></div></section>
+  <section data-label="Cartoon · Expressions"><div id="deck-slide-23"></div></section>
+  <section data-label="Cartoon · Integrations"><div id="deck-slide-24"></div></section>
+  <section data-label="Cartoon · Which style"><div id="deck-slide-25"></div></section>
+  <section data-label="Animation · Opener"><div id="deck-slide-26"></div></section>
+  <section data-label="Animation · Technique"><div id="deck-slide-27"></div></section>
+  <section data-label="Animation · Tools"><div id="deck-slide-28"></div></section>
+  <section data-label="Animation · Status"><div id="deck-slide-29"></div></section>
+  <section data-label="Sample Website"><div id="deck-slide-33"></div></section>
+  <section data-label="Wordmark Explorations"><div id="deck-slide-34"></div></section>
+</deck-stage>
+
+<!-- review zoom control — shrinks the slide for easier overview -->
+<div id="zoomctl" aria-label="Slide zoom">
+  <button type="button" data-z="out" title="Zoom out">&minus;</button>
+  <span id="zoomval">100%</span>
+  <button type="button" data-z="in" title="Zoom in">+</button>
+  <button type="button" data-z="fit" title="Fit to screen">Fit</button>
+</div>
+<style>
+  #zoomctl {
+    position: fixed; top: 16px; right: 16px; z-index: 30;
+    display: flex; align-items: center; gap: 2px;
+    padding: 4px; border-radius: 999px;
+    background: rgba(20,20,26,0.78); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.10);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    user-select: none; opacity: 0.35; transition: opacity .18s;
+  }
+  #zoomctl:hover { opacity: 1; }
+  #zoomctl button {
+    appearance: none; border: 0; cursor: pointer; color: #fff;
+    background: transparent; border-radius: 999px;
+    width: 26px; height: 26px; font-size: 15px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #zoomctl button[data-z="fit"] { width: auto; padding: 0 11px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  #zoomctl button:hover { background: rgba(255,255,255,0.14); }
+  #zoomval {
+    min-width: 44px; text-align: center; color: #fff;
+    font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500;
+  }
+</style>
+<script>
+  (function () {
+    var KEY = 'vorkerDeck.zoom';
+    var MIN = 0.3, MAX = 1, STEP = 0.1;
+    var deck = document.querySelector('deck-stage');
+    var val = document.getElementById('zoomval');
+    function clamp(z) { return Math.min(MAX, Math.max(MIN, Math.round(z * 10) / 10)); }
+    function read() { var v = parseFloat(localStorage.getItem(KEY)); return (isFinite(v) && v > 0) ? clamp(v) : 1; }
+    function apply(z) {
+      z = clamp(z);
+      if (z >= 1) deck.removeAttribute('zoom'); else deck.setAttribute('zoom', z);
+      val.textContent = Math.round(z * 100) + '%';
+      try { localStorage.setItem(KEY, z); } catch (e) {}
+    }
+    document.getElementById('zoomctl').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var cur = read(), z = b.dataset.z === 'in' ? cur + STEP : b.dataset.z === 'out' ? cur - STEP : 1;
+      apply(z);
+    });
+    apply(read());
+  })();
+</script>
+<script src="deck-stage.js"></script>
+<script type="text/babel" src="cover.jsx"></script>
+<script type="text/babel" src="meet-vorker.jsx"></script>
+<script type="text/babel" src="expressions.jsx"></script>
+<script type="text/babel" src="integrations.jsx"></script>
+<script type="text/babel" src="stage-note.jsx"></script>
+<script type="text/babel" src="brand-imagery.jsx"></script>
+<script type="text/babel" src="style-options.jsx"></script>
+<script type="text/babel" src="prompts.jsx"></script>
+<script type="text/babel" src="iteration.jsx"></script>
+<script type="text/babel" src="stylefamily.jsx"></script>
+<script type="text/babel" src="cartoon.jsx"></script>
+<script type="text/babel" src="animation.jsx"></script>
+<script type="text/babel" src="sample-site.jsx"></script>
+<script type="text/babel" src="wordmarks.jsx"></script>
+<script type="text/babel">
+  const { createRoot } = ReactDOM;
+  createRoot(document.getElementById('deck-slide-1')).render(<Cover wordmark="assets/wordmark_1.svg" />);
+  createRoot(document.getElementById('deck-slide-2')).render(<MeetVorkerB />);
+  createRoot(document.getElementById('deck-slide-3')).render(<Expressions3 />);
+  createRoot(document.getElementById('deck-slide-4')).render(<Expressions4 />);
+  createRoot(document.getElementById('deck-slide-5')).render(<Integrations5 />);
+  createRoot(document.getElementById('deck-slide-6')).render(<Integrations6 />);
+  createRoot(document.getElementById('deck-slide-7')).render(<StageNoteA />);
+  createRoot(document.getElementById('deck-slide-8')).render(<BrandOpener />);
+  createRoot(document.getElementById('deck-slide-9')).render(<CollectionOne />);
+  createRoot(document.getElementById('deck-slide-10')).render(<CollectionTwo />);
+  createRoot(document.getElementById('deck-slide-11')).render(<StyleOptionsHike />);
+  createRoot(document.getElementById('deck-slide-12')).render(<StyleOptionsDolly />);
+  createRoot(document.getElementById('deck-slide-13')).render(<PromptsTitle />);
+  createRoot(document.getElementById('deck-slide-14')).render(<PromptsTwoRefs />);
+  createRoot(document.getElementById('deck-slide-15')).render(<PromptsTelephone />);
+  createRoot(document.getElementById('deck-slide-16')).render(<PromptsAnatomy />);
+  createRoot(document.getElementById('deck-slide-17')).render(<PromptsBreathing />);
+  createRoot(document.getElementById('deck-slide-18')).render(<PromptsDialing />);
+  createRoot(document.getElementById('deck-slide-19')).render(<PromptsExample />);
+  createRoot(document.getElementById('deck-slide-20')).render(<IterationCrane />);
+  createRoot(document.getElementById('deck-slide-21')).render(<IterationMountain />);
+  createRoot(document.getElementById('deck-slide-30')).render(<StyleFamilyOpener />);
+  createRoot(document.getElementById('deck-slide-31')).render(<StyleFamilyTiers />);
+  createRoot(document.getElementById('deck-slide-32')).render(<StyleFamilyRule />);
+  createRoot(document.getElementById('deck-slide-22')).render(<CartoonMeet />);
+  createRoot(document.getElementById('deck-slide-23')).render(<CartoonExpressions />);
+  createRoot(document.getElementById('deck-slide-24')).render(<CartoonApps />);
+  createRoot(document.getElementById('deck-slide-25')).render(<CartoonWhich />);
+  createRoot(document.getElementById('deck-slide-26')).render(<AnimOpener />);
+  createRoot(document.getElementById('deck-slide-27')).render(<AnimTechnique />);
+  createRoot(document.getElementById('deck-slide-28')).render(<AnimTools />);
+  createRoot(document.getElementById('deck-slide-29')).render(<AnimStatus />);
+  createRoot(document.getElementById('deck-slide-33')).render(<SampleSite />);
+  createRoot(document.getElementById('deck-slide-34')).render(<WordmarkExplorations />);
+</script>
+</body>
+</html>
